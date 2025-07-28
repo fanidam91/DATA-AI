@@ -3,7 +3,18 @@
 	"properties": {
 		"annotations": [],
 		"runtimeState": "Started",
-		"pipelines": [],
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "Pl_ingest_eded_data",
+					"type": "PipelineReference"
+				},
+				"parameters": {
+					"relativeURL": "fanidam91/DATA/blob/Test/hospital_admissions.csv",
+					"Filename": "hospital_admissions.csv"
+				}
+			}
+		],
 		"type": "ScheduleTrigger",
 		"typeProperties": {
 			"recurrence": {

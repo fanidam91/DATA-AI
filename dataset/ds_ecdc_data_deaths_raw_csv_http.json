@@ -1,5 +1,5 @@
 {
-	"name": "ds_cases_deaths_raw_csv_http",
+	"name": "ds_ecdc_data_deaths_raw_csv_http",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "ls_http_opendata_edpc_europa_au",

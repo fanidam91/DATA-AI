@@ -1,5 +1,5 @@
 {
-	"name": "Pl_ingest_cases_death_data",
+	"name": "Pl_ingest_eded_data",
 	"properties": {
 		"activities": [
 			{
@@ -48,11 +48,11 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_http",
+						"referenceName": "ds_ecdc_data_deaths_raw_csv_http",
 						"type": "DatasetReference",
 						"parameters": {
 							"relativeURL": {
-								"value": "@variables('relativeURL')",
+								"value": "@pipeline().parameters.relativeURL",
 								"type": "Expression"
 							}
 						}
@@ -60,11 +60,11 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "ds_cases_deaths_raw_csv_dl",
+						"referenceName": "ds_ecdc_cases_deaths_raw_csv_dl",
 						"type": "DatasetReference",
 						"parameters": {
 							"Filename": {
-								"value": "@variables('Filename')",
+								"value": "@pipeline().parameters.Filename",
 								"type": "Expression"
 							}
 						}
@@ -72,14 +72,12 @@
 				]
 			}
 		],
-		"variables": {
+		"parameters": {
 			"relativeURL": {
-				"type": "String",
-				"defaultValue": "fanidam91/DATA/blob/Test/hospital_admissions.csv"
+				"type": "string"
 			},
 			"Filename": {
-				"type": "String",
-				"defaultValue": "hospital_admissions.csv"
+				"type": "string"
 			}
 		},
 		"annotations": []

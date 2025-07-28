@@ -23,6 +23,14 @@
 			"type": "string",
 			"defaultValue": "https://github.com"
 		},
+		"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_relativeURL": {
+			"type": "string",
+			"defaultValue": "fanidam91/DATA/blob/Test/hospital_admissions.csv"
+		},
+		"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_Filename": {
+			"type": "string",
+			"defaultValue": "hospital_admissions.csv"
+		},
 		"containerUri": {
 			"type": "string",
 			"metadata": "URI to storage account containing linked ARM templates"
@@ -61,6 +69,12 @@
 					},
 					"ls_http_opendata_edpc_europa_au_properties_typeProperties_url": {
 						"value": "[parameters('ls_http_opendata_edpc_europa_au_properties_typeProperties_url')]"
+					},
+					"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_relativeURL": {
+						"value": "[parameters('tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_relativeURL')]"
+					},
+					"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_Filename": {
+						"value": "[parameters('tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_Filename')]"
 					}
 				}
 			},

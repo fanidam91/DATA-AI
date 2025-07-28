@@ -16,6 +16,12 @@
 		},
 		"ls_http_opendata_edpc_europa_au_properties_typeProperties_url": {
 			"value": "https://github.com"
+		},
+		"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_relativeURL": {
+			"value": "fanidam91/DATA/blob/Test/hospital_admissions.csv"
+		},
+		"tr_ingest_hospital_data_properties_Pl_ingest_eded_data_parameters_Filename": {
+			"value": "hospital_admissions.csv"
 		}
 	}
 }

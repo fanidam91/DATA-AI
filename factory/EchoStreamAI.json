@@ -1,0 +1,9 @@
+{
+	"name": "EchoStreamAI",
+	"location": "australiaeast",
+	"identity": {
+		"type": "SystemAssigned",
+		"principalId": "7febe99e-05dc-4262-8d6c-90be22869432",
+		"tenantId": "a053df32-6852-4663-b87f-c0b881ac8762"
+	}
+}

@@ -82,12 +82,20 @@
 					"referenceName": "ls_ablob_covidreportsyd",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"Filename": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
-						"fileName": "cases_deaths.csv",
+						"fileName": {
+							"value": "@dataset().Filename",
+							"type": "Expression"
+						},
 						"folderPath": "ecdc",
 						"fileSystem": "raw"
 					},
@@ -111,12 +119,20 @@
 					"referenceName": "ls_http_opendata_edpc_europa_au",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"relativeURL": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "HttpServerLocation",
-						"relativeUrl": "fanidam91/DATA/blob/Test/cases_deaths.csv"
+						"relativeUrl": {
+							"value": "@dataset().relativeURL",
+							"type": "Expression"
+						}
 					},
 					"columnDelimiter": ",",
 					"escapeChar": "\\",
@@ -224,7 +240,7 @@
 			"properties": {
 				"activities": [
 					{
-						"name": "Copy data1",
+						"name": "Copy cases and Deaths Data",
 						"type": "Copy",
 						"dependsOn": [],
 						"policy": {
@@ -271,20 +287,41 @@
 							{
 								"referenceName": "ds_cases_deaths_raw_csv_http",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"relativeURL": {
+										"value": "@variables('relativeURL')",
+										"type": "Expression"
+									}
+								}
 							}
 						],
 						"outputs": [
 							{
 								"referenceName": "ds_cases_deaths_raw_csv_dl",
 								"type": "DatasetReference",
-								"parameters": {}
+								"parameters": {
+									"Filename": {
+										"value": "@variables('Filename')",
+										"type": "Expression"
+									}
+								}
 							}
 						]
 					}
 				],
 				"policy": {
 					"elapsedTimeMetric": {}
+				},
+				"parameters": {},
+				"variables": {
+					"relativeURL": {
+						"type": "String",
+						"defaultValue": "fanidam91/DATA/blob/Test/hospital_admissions.csv"
+					},
+					"Filename": {
+						"type": "String",
+						"defaultValue": "hospital_admissions.csv"
+					}
 				},
 				"annotations": []
 			},

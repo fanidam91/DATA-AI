@@ -1,0 +1,21 @@
+{
+	"$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentParameters.json#",
+	"contentVersion": "1.0.0.0",
+	"parameters": {
+		"factoryName": {
+			"value": "EchoStreamAI"
+		},
+		"ls_ablob_covidreportinghyd_connectionString": {
+			"value": ""
+		},
+		"ls_ablob_covidreportsyd_accountKey": {
+			"value": ""
+		},
+		"ls_ablob_covidreportsyd_properties_typeProperties_url": {
+			"value": "https://covidreporsyd.dfs.core.windows.net/"
+		},
+		"ls_http_opendata_edpc_europa_au_properties_typeProperties_url": {
+			"value": "https://github.com"
+		}
+	}
+}

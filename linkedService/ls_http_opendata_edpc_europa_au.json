@@ -1,10 +1,15 @@
 {
 	"name": "ls_http_opendata_edpc_europa_au",
 	"properties": {
+		"parameters": {
+			"sourceBaseURL": {
+				"type": "string"
+			}
+		},
 		"annotations": [],
 		"type": "HttpServer",
 		"typeProperties": {
-			"url": "https://github.com",
+			"url": "@{linkedService().sourceBaseURL}",
 			"enableServerCertificateValidation": true,
 			"authenticationType": "Anonymous"
 		}

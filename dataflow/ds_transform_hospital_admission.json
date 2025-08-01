@@ -1,0 +1,52 @@
+{
+	"name": "ds_transform_hospital_admission",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "HospitalAdmissionSource",
+						"type": "DatasetReference"
+					},
+					"name": "HospitalAdmissionSource"
+				},
+				{
+					"name": "CountrySource"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "selectrequiredfield"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as date,",
+				"          year_week as string,",
+				"          value as decimal(10,0),",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> HospitalAdmissionSource",
+				"source(allowSchemaDrift: true,",
+				"     validateSchema: false) ~> CountrySource",
+				"HospitalAdmissionSource select(mapColumn(",
+				"          country,",
+				"          indicator,",
+				"          reported_date = date,",
+				"          reported_year_week = year_week,",
+				"          value,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectrequiredfield"
+			]
+		}
+	}
+}

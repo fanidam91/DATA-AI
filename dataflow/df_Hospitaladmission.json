@@ -1,0 +1,124 @@
+{
+	"name": "df_Hospitaladmission",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "ds_Hospitaladmission",
+						"type": "DatasetReference"
+					},
+					"name": "hospitaladmissionfilds"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_country_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "ContrySource"
+				},
+				{
+					"dataset": {
+						"referenceName": "ds_dim_date_lookup",
+						"type": "DatasetReference"
+					},
+					"name": "DimDataSource"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "SelecetrequiredFields"
+				},
+				{
+					"name": "lookupcountry"
+				},
+				{
+					"name": "selectrequ"
+				},
+				{
+					"name": "SplitDailyFromWeekly"
+				},
+				{
+					"name": "derivedecdcyearweek"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          country as string,",
+				"          indicator as string,",
+				"          date as string,",
+				"          year_week as string,",
+				"          value as string,",
+				"          source as string,",
+				"          url as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> hospitaladmissionfilds",
+				"source(output(",
+				"          country as string,",
+				"          country_code_2_digit as string,",
+				"          country_code_3_digit as string,",
+				"          continent as string,",
+				"          population as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ContrySource",
+				"source(output(",
+				"          date_key as string,",
+				"          date as string,",
+				"          year as string,",
+				"          month as string,",
+				"          day as string,",
+				"          day_name as string,",
+				"          day_of_year as string,",
+				"          week_of_month as string,",
+				"          week_of_year as string,",
+				"          month_name as string,",
+				"          year_month as string,",
+				"          year_week as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> DimDataSource",
+				"hospitaladmissionfilds select(mapColumn(",
+				"          country,",
+				"          indicator,",
+				"          reported_date = date,",
+				"          reported_year_week = year_week,",
+				"          value,",
+				"          source",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> SelecetrequiredFields",
+				"SelecetrequiredFields, ContrySource lookup(SelecetrequiredFields@country == ContrySource@country,",
+				"     multiple: false,",
+				"     pickup: 'any',",
+				"     broadcast: 'auto')~> lookupcountry",
+				"lookupcountry select(mapColumn(",
+				"          country = SelecetrequiredFields@country,",
+				"          indicator,",
+				"          reported_date,",
+				"          reported_year_week,",
+				"          value,",
+				"          source,",
+				"          country = ContrySource@country,",
+				"          country_code_2_digit,",
+				"          country_code_3_digit,",
+				"          population",
+				"     ),",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> selectrequ",
+				"selectrequ split(indicator=='Weekly new hospital admissions per 100k'||indicator=='Weekly new icu admissions per 100k',",
+				"     disjoint: false) ~> SplitDailyFromWeekly@(Weekly, Daily)",
+				"DimDataSource derive(ecdc_year_week = year +'-W' +lpad(week_of_year, 2, '0')\r",
+				"\r",
+				"\r",
+				") ~> derivedecdcyearweek"
+			]
+		}
+	}
+}

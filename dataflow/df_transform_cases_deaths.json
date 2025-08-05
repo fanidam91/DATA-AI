@@ -47,6 +47,9 @@
 				}
 			],
 			"scriptLines": [
+				"parameters{",
+				"     parameter1 as string",
+				"}",
 				"source(output(",
 				"          country as string,",
 				"          country_code as string,",
@@ -92,8 +95,7 @@
 				"          reported_date,",
 				"          country_special = country+country_code),",
 				"     pivotBy(indicator, ['confirmed cases', 'deaths']),",
-				"     count = sum(daily_count)\r",
-				",",
+				"     count = sum(daily_count),",
 				"     columnNaming: '$V_$N',",
 				"     lateral: true) ~> pivotcounts",
 				"pivotcounts, countrylookup lookup(pivotcounts@country == countrylookup@country,",

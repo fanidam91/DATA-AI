@@ -49,6 +49,9 @@
 				{
 					"name": "PivotWeekly",
 					"description": "Pivots row values into columns, groups columns and aggregates data\n"
+				},
+				{
+					"name": "PivotDaily"
 				}
 			],
 			"scriptLines": [
@@ -138,7 +141,10 @@
 				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
 				"     count = sum(toInteger(value)),",
 				"     columnNaming: '$V_$N',",
-				"     lateral: true) ~> PivotWeekly"
+				"     lateral: true) ~> PivotWeekly",
+				"SplitDailyFromWeekly@Daily pivot(groupBy(country),",
+				"     columnNaming: '$N$V',",
+				"     lateral: true) ~> PivotDaily"
 			]
 		}
 	}

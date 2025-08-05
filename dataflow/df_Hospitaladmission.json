@@ -155,7 +155,8 @@
 				",",
 				"     columnNaming: '$N-$V',",
 				"     lateral: true) ~> PivotDaily",
-				"PivotWeekly sort(asc(ERROR_FUNCTION(''), true),",
+				"PivotWeekly sort(asc(reported_year_week, true),",
+				"     asc(ERROR_FUNCTION(''), true),",
 				"     partitionLevel: true) ~> sortweekly"
 			]
 		}

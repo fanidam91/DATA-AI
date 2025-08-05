@@ -49,6 +49,9 @@
 				{
 					"name": "PivotWeekly",
 					"description": "Pivots row values into columns, groups columns and aggregates data\n"
+				},
+				{
+					"name": "pivot1"
 				}
 			],
 			"scriptLines": [
@@ -121,7 +124,7 @@
 				"     skipDuplicateMapOutputs: true) ~> selectrequ",
 				"selectrequ split(indicator=='Weekly new hospital admissions per 100k'||indicator=='Weekly new icu admissions per 100k',",
 				"     disjoint: false) ~> SplitDailyFromWeekly@(Weekly, Daily)",
-				"DimDataSource aggregate(groupBy(ecdc_year_week = year +'-W'+ lpad(week_of_year,2,'0')),",
+				"DimDataSource aggregate(groupBy(ecdc_year_week = year+'-W'+lpad(week_of_year,2,'0')),",
 				"     week_start_date = min(date),",
 				"          week_end_date = max(date)) ~> AggDimDate",
 				"SplitDailyFromWeekly@Weekly, AggDimDate join(reported_year_week == ecdc_year_week,",
@@ -138,7 +141,9 @@
 				"     pivotBy(indicator, ['Weekly new hospital admissions per 100k', 'Weekly new ICU admissions per 100k']),",
 				"     count = sum(toInteger(value)),",
 				"     columnNaming: '$V_$N',",
-				"     lateral: true) ~> PivotWeekly"
+				"     lateral: true) ~> PivotWeekly",
+				"SplitDailyFromWeekly@Daily pivot(columnNaming: '$N$V',",
+				"     lateral: true) ~> pivot1"
 			]
 		}
 	}

@@ -54,7 +54,7 @@
 					"name": "PivotDaily"
 				},
 				{
-					"name": "sortweekly"
+					"name": "sort1"
 				}
 			],
 			"scriptLines": [
@@ -155,8 +155,7 @@
 				",",
 				"     columnNaming: '$N-$V',",
 				"     lateral: true) ~> PivotDaily",
-				"PivotWeekly sort(asc(country, true),",
-				"     asc(ERROR_FUNCTION(''), true)) ~> sortweekly"
+				"PivotWeekly sort(asc(country, true)) ~> sort1"
 			]
 		}
 	}

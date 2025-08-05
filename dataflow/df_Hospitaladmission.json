@@ -52,6 +52,9 @@
 				},
 				{
 					"name": "PivotDaily"
+				},
+				{
+					"name": "sortweekly"
 				}
 			],
 			"scriptLines": [
@@ -151,7 +154,9 @@
 				"     count = sum(toInteger(value))\r",
 				",",
 				"     columnNaming: '$N-$V',",
-				"     lateral: true) ~> PivotDaily"
+				"     lateral: true) ~> PivotDaily",
+				"PivotWeekly sort(asc(ERROR_FUNCTION(''), true),",
+				"     partitionLevel: true) ~> sortweekly"
 			]
 		}
 	}

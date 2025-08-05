@@ -160,7 +160,8 @@
 				"     lateral: true) ~> PivotDaily",
 				"PivotWeekly sort(asc(country, true),",
 				"     asc(reported_year_week, true)) ~> sortweekly",
-				"PivotDaily sort(asc(reported_date, true)) ~> sort1"
+				"PivotDaily sort(asc(reported_date, true),",
+				"     asc(ERROR_FUNCTION(''), true)) ~> sort1"
 			]
 		}
 	}

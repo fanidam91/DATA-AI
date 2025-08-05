@@ -145,8 +145,8 @@
 				"SplitDailyFromWeekly@Daily pivot(groupBy(country,",
 				"          country_code_2_digit,",
 				"          country_code_3_digit,",
-				"          {} = ERROR_FUNCTION(''),",
-				"          {} = ERROR_FUNCTION('')),",
+				"          population,",
+				"          reported_date),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> PivotDaily"
 			]

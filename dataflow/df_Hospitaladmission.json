@@ -147,6 +147,7 @@
 				"          country_code_3_digit,",
 				"          population,",
 				"          reported_date),",
+				"     pivotBy(indicator, ['Daily ICU occupancy', 'Daily hospital occupancy']),",
 				"     columnNaming: '$N$V',",
 				"     lateral: true) ~> PivotDaily"
 			]
